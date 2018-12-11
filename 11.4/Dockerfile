@@ -3,9 +3,8 @@
 #  Building Stage   #
 
 #####################
-ENV GITLAB_VER_EN=11.4.10
 
-FROM gitlab/gitlab-ce:{GITLAB_VER_EN}-ce.0 as builder
+FROM gitlab/gitlab-ce:11.4.10-ce.0 as builder
 
 ENV GITLAB_DIR=/opt/gitlab/embedded/service/gitlab-rails
 
@@ -54,7 +53,7 @@ RUN set -xe \
 
     && export IGNORE_DIRS=':!qa :!spec :!features :!.gitignore :!.gitlab :!locale :!app/assets/ :!vendor/assets/' \
 
-    && git diff --diff-filter=d v{GITLAB_VER_EN}..v{GITLAB_VER_EN}-zh -- . ${IGNORE_DIRS} > ../zh_CN.diff \
+    && git diff --diff-filter=d v11.4.10..v11.4.10-zh -- . ${IGNORE_DIRS} > ../zh_CN.diff \
 
     && echo " # Patching ..." \
 
@@ -62,7 +61,7 @@ RUN set -xe \
 
     && echo " # Copy assets files ..." \
 
-    && git checkout v{GITLAB_VER_EN}-zh \
+    && git checkout v11.4.10-zh \
 
     && cp -R locale ${GITLAB_DIR}/ \
 
@@ -158,7 +157,7 @@ RUN set -xe \
 
 ######################
 
-FROM gitlab/gitlab-ce:{GITLAB_VER_EN}-ce.0 as production
+FROM gitlab/gitlab-ce:11.4.10-ce.0 as production
 
 
 
@@ -182,15 +181,15 @@ ENV TZ=Asia/Shanghai
 
 
 
-ENV GITLAB_VERSION=v{GITLAB_VER_EN}
+ENV GITLAB_VERSION=v11.4.10
 
 ENV GITLAB_DIR=/opt/gitlab/embedded/service/gitlab-rails
 
 ENV GITLAB_GIT_ZH=https://gitlab.com/xhang/gitlab.git
 
-ENV GITLAB_GIT_COMMIT_UPSTREAM=v{GITLAB_VER_EN}
+ENV GITLAB_GIT_COMMIT_UPSTREAM=v11.4.10
 
-ENV GITLAB_GIT_COMMIT_ZH=v{GITLAB_VER_EN}-zh
+ENV GITLAB_GIT_COMMIT_ZH=v11.4.10-zh
 
 
 
