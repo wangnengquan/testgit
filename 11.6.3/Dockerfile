@@ -1,16 +1,19 @@
 FROM ubuntu:18.04
 
 # Install required packages
+RUN echo "++ Install Required Packages"
 RUN apt-get update -q \
     && apt-get upgrade -yq \
     && apt-get install -yq curl openssh-server \
         ca-certificates
 
 # Download & Install GitLab
+RUN echo "++ Download & Install Gitlab"
 RUN curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | bash
-RUN EXTERNAL_URL="http://gitlab.suanzaozi.com" apt-get install gitlab-ce=11.6.3-ce.0
+RUN EXTERNAL_URL="http://gitlab.suanzaozi.com" apt-get install -yq gitlab-ce=11.6.3-ce.0
 
 # Prepare default configuration
+RUN echo "Prepare Default Configuration"
 RUN ( \
     echo "" && \
     echo "# Docker options" && \
