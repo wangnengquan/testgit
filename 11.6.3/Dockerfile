@@ -1,9 +1,9 @@
 FROM ubuntu:18.04
 
 # Install required packages
-RUN apt update -q \
-    && apt upgrade -yq \
-    && apt install -yq curl openssh-server \
+RUN apt-get update -q \
+    && apt-get upgrade -yq \
+    && apt-get install -yq curl openssh-server \
         ca-certificates
 
 # Download & Install GitLab
@@ -22,8 +22,8 @@ RUN ( \
 # Install locales
 RUN set -xe \
     && export DEBIAN_FRONTEND=noninteractive \
-    && apt update \
-    && apt install -yq locales tzdata \
+    && apt-get update \
+    && apt-get install -yq locales tzdata \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
